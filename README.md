@@ -23,7 +23,7 @@ A Model Context Protocol (MCP) server that provides fuzzy search and retrieval f
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/chrisreedio/fontawesome-mcp.git
 cd fontawesome-mcp
 
 # Install dependencies (uses your FA Pro token automatically)
