@@ -48,6 +48,112 @@ npm install
 npm run build
 ```
 
+## 🧭 Using
+
+Set up this MCP server in your favorite clients.
+
+### Claude Desktop
+
+Recommended (npx):
+```json
+{
+  "mcpServers": {
+    "fontawesome-pro": {
+      "command": "npx",
+      "args": ["-y", "@chrisreedio/fontawesome-pro-mcp"]
+    }
+  }
+}
+```
+
+Local development path:
+```json
+{
+  "mcpServers": {
+    "fontawesome-pro": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/fontawesome-mcp/dist/mcp-server.js"]
+    }
+  }
+}
+```
+
+Config file locations:
+- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%/Claude/claude_desktop_config.json`
+
+Restart Claude Desktop after editing the config.
+
+### Cursor
+
+#### Option 1: Easy Install - One-Click
+
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-light.svg)](https://cursor.com/en/install-mcp?name=fontawesome-pro&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwY2hyaXNyZWVkaW8lMkZmb250YXdlc29tZS1wcm8tbWNwJTIyJTdE)
+
+#### Option 2: Manual Setup
+
+Steps:
+- Open Cursor Settings (Cmd+Shift+J) → MCP Servers
+- Add a server and paste one of the configs below
+- Restart Cursor if tools don’t appear
+
+Recommended (npx):
+```json
+{
+  "mcpServers": {
+    "fontawesome-pro": {
+      "command": "npx",
+      "args": ["-y", "@chrisreedio/fontawesome-pro-mcp"]
+    }
+  }
+}
+```
+
+
+Local development path:
+```json
+{
+  "mcpServers": {
+    "fontawesome-pro": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/fontawesome-mcp/dist/mcp-server.js"]
+    }
+  }
+}
+```
+
+Tips:
+- If you use many MCP servers, ensure this one isn’t disabled in Cursor’s MCP UI
+- Some Cursor builds prioritize a limited number of tools; placing this server earlier can help
+
+### VS Code
+
+You can use either the Claude Code CLI or the Claude Dev extension.
+
+CLI (recommended):
+```bash
+claude mcp add fontawesome-pro -- npx -y @chrisreedio/fontawesome-pro-mcp
+```
+Local path alternative:
+```bash
+claude mcp add fontawesome-pro node /ABSOLUTE/PATH/TO/fontawesome-mcp/dist/mcp-server.js
+```
+
+Claude Dev (Cline) config example:
+```json
+{
+  "mcpServers": {
+    "fontawesome-pro": {
+      "command": "npx",
+      "args": ["-y", "@chrisreedio/fontawesome-pro-mcp"]
+    }
+  }
+}
+```
+Common locations:
+- macOS: `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+- Windows: `%APPDATA%/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+
 ## 🎮 Usage
 
 ### Development
@@ -62,95 +168,7 @@ npm start
 
 The server runs on `http://localhost:8000` by default. Set `PORT` environment variable to change.
 
-## 🔌 MCP Client Integration
-
-### Claude Desktop
-
-#### Option 1: NPM Package (Recommended)
-
-Once published, use the npx approach for the easiest setup:
-
-**Configuration File Location:**
-- **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows:** `%APPDATA%/Claude/claude_desktop_config.json`
-
-**Configuration:**
-```json
-{
-  "mcpServers": {
-    "fontawesome-pro": {
-      "command": "npx",
-      "args": ["-y", "@chrisreedio/fontawesome-pro-mcp"]
-    }
-  }
-}
-```
-
-**Setup Steps:**
-1. Add the configuration to Claude Desktop
-2. Restart Claude Desktop
-3. NPX will automatically download and run the server
-
-**Benefits:**
-- ✅ No local setup required
-- ✅ Automatic updates when package is updated
-- ✅ No path configuration needed
-- ✅ Font Awesome Pro dependencies handled automatically
-
-#### Option 2: Local Development Setup
-
-For development or if you prefer local installation:
-
-**Configuration:**
-```json
-{
-  "mcpServers": {
-    "fontawesome-pro": {
-      "command": "node",
-      "args": ["/ABSOLUTE/PATH/TO/fontawesome-mcp/dist/mcp-server.js"]
-    }
-  }
-}
-```
-
-**Setup Steps:**
-1. Clone and build the project locally
-2. Make sure Font Awesome Pro is installed: `npm install`
-3. Build the MCP server: `npm run build`  
-4. Add the configuration with your actual project path
-5. Restart Claude Desktop
-
-After setup:
-1. The Font Awesome tools will appear in your Claude conversations
-2. You can search for icons with `fuzzySearch` and get specific icons with `getIcon`
-3. All Font Awesome Pro styles are supported (solid, regular, light, thin, duotone, brands)
-
-### Claude Code CLI
-
-#### Option 1: NPM Package (Recommended)
-
-Once published, you can install directly via npx:
-
-```bash
-claude mcp add fontawesome-pro -- npx -y @chrisreedio/fontawesome-pro-mcp
-```
-
-This method automatically handles dependencies and updates.
-
-#### Option 2: Local Installation
-
-For development or local use:
-
-```bash
-claude mcp add fontawesome-pro node /ABSOLUTE/PATH/TO/fontawesome-mcp/dist/mcp-server.js
-```
-
-Replace `/ABSOLUTE/PATH/TO/fontawesome-mcp` with the full path to your project directory.
-
-After adding:
-1. The server will be available in all Claude Code sessions
-2. Use the Font Awesome tools directly in your coding conversations
-3. Perfect for finding and integrating icons into your projects
+ 
 
 ## 🔗 API Endpoints
 
