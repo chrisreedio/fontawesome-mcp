@@ -6,8 +6,11 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "dev:mcp": "tsx watch src/mcp-server.ts",
     "build": "tsc",
+    "build:mcp": "tsc src/mcp-server.ts --outDir dist --module es2022 --target es2022 --moduleResolution node",
     "start": "node dist/server.js",
+    "start:mcp": "node dist/mcp-server.js",
     "clean": "rm -rf dist"
   },
   "keywords": [

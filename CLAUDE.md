@@ -5,8 +5,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 - `npm run dev` - Start development server with hot reload using tsx watch
+- `npm run dev:mcp` - Start local MCP server in development mode
 - `npm run build` - Compile TypeScript to JavaScript in dist/ directory
-- `npm start` - Run production server from dist/server.js
+- `npm run start` - Run production server from dist/server.js
+- `npm run start:mcp` - Run local MCP server from dist/mcp-server.js
 - `npm run clean` - Remove build artifacts from dist/ directory
 
 ## Architecture Overview
@@ -28,12 +30,17 @@ This is a Font Awesome Pro MCP (Model Context Protocol) server that provides ico
 - Each method exports a standardized object with `name`, `description`, `inputSchema`, and `handler`
 - Uses Zod schemas for parameter validation
 
-**Server (`src/server.ts`)**
+**HTTP Server (`src/server.ts`)**
 - Express server providing three interfaces:
   1. Simple HTTP API (`/api/search`, `/api/icon`) 
   2. MCP JSON-RPC protocol (`/rpc`) for MCP clients
   3. Direct SVG access (`/svg/:style/:name.svg`)
 - Port configurable via PORT environment variable (default: 8000)
+
+**Local MCP Server (`src/mcp-server.ts`)**
+- Standalone MCP server using stdio transport for local client integration
+- Registers the same tools as HTTP server but communicates via stdin/stdout
+- Compatible with Claude Desktop and other MCP clients that support local servers
 
 ### Key Dependencies
 
@@ -65,3 +72,27 @@ This is a Font Awesome Pro MCP (Model Context Protocol) server that provides ico
 **Get Icon**: `POST /api/icon` with `{name, style}`
 **MCP Tools List**: `POST /rpc` with `{method: "tools/list"}`
 **MCP Tool Call**: `POST /rpc` with `{method: "tools/call", params: {name, arguments}}`
+
+## Local MCP Client Configuration
+
+For use with Claude Desktop or other MCP clients, add this configuration to your MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "fontawesome-pro": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/fontawesome-mcp/dist/mcp-server.js"]
+    }
+  }
+}
+```
+
+Replace `/ABSOLUTE/PATH/TO/fontawesome-mcp` with the full path to this project directory.
+
+### Setup Steps
+
+1. Build the project: `npm run build`
+2. Update the path in `example-mcp-config.json`
+3. Add the configuration to your MCP client settings
+4. Restart your MCP client to load the server

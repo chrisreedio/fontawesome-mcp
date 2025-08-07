@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "fontawesome-pro": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/fontawesome-mcp/dist/mcp-server.js"]
+    }
+  }
+}
