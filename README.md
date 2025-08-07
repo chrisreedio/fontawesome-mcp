@@ -169,6 +169,110 @@ src/
     └── getIcon.ts     # Icon retrieval functionality
 ```
 
+## Production Deployment
+
+For production use, you'll want to run the server as a persistent service that automatically restarts on failure and survives system reboots. Here are the most common deployment approaches:
+
+### PM2 Process Manager (Recommended)
+PM2 is a popular Node.js process manager that handles automatic restarts, logging, and clustering.
+
+```bash
+# Install PM2 globally
+npm install -g pm2
+
+# Start the server
+pm2 start npm --name "fontawesome-mcp" -- start
+
+# Save current PM2 processes
+pm2 save
+
+# Setup auto-restart on system reboot
+pm2 startup
+
+# Monitor the process
+pm2 status
+pm2 logs fontawesome-mcp
+```
+
+### Docker
+Containerized deployment for consistent environments and easy scaling.
+
+First, create a `Dockerfile`:
+```dockerfile
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy source and build
+COPY . .
+RUN npm run build
+
+# Expose port
+EXPOSE 8000
+
+# Start server
+CMD ["npm", "start"]
+```
+
+Then build and run:
+```bash
+# Build image
+docker build -t fontawesome-mcp .
+
+# Run container
+docker run -d -p 8000:8000 --restart unless-stopped --name fontawesome-mcp fontawesome-mcp
+
+# View logs
+docker logs fontawesome-mcp
+```
+
+### systemd Service (Linux)
+For Linux servers, systemd provides robust service management.
+
+Create `/etc/systemd/system/fontawesome-mcp.service`:
+```ini
+[Unit]
+Description=Font Awesome MCP Server
+After=network.target
+
+[Service]
+Type=simple
+User=chris
+WorkingDirectory=/home/chris/dev/chrisreedio/projects/fontawesome-mcp
+ExecStart=/usr/bin/node dist/server.js
+Restart=always
+RestartSec=10
+Environment=NODE_ENV=production
+Environment=PORT=8000
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable and start the service:
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable fontawesome-mcp
+sudo systemctl start fontawesome-mcp
+
+# Check status
+sudo systemctl status fontawesome-mcp
+```
+
+### Environment Variables
+Set these environment variables for production:
+```bash
+NODE_ENV=production
+PORT=8000
+LOG_LEVEL=info
+```
+
 ## Development
 
 ### Scripts
