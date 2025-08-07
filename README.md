@@ -88,7 +88,7 @@ Restart Claude Desktop after editing the config.
 
 #### Option 1: Easy Install - One-Click
 
-[![Install MCP Server](https://cursor.com/deeplink/mcp-install-light.svg)](https://cursor.com/en/install-mcp?name=fontawesome-pro&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwY2hyaXNyZWVkaW8lMkZmb250YXdlc29tZS1wcm8tbWNwJTIyJTdE)
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-light.svg)](https://cursor.com/en/install-mcp?name=Font%20Awesome%20MCP%20Server&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwY2hyaXNyZWVkaW8lMkZmb250YXdlc29tZS1wcm8tbWNwJTIyJTdE)
 
 #### Option 2: Manual Setup
 
