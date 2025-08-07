@@ -8,15 +8,18 @@ export default {
     '^(\\.{1,2}/.*)\\.(js|ts)$': '$1'
   },
   extensionsToTreatAsEsm: ['.ts'],
-  globals: {
-    'ts-jest': {
-      useESM: true,
-      tsconfig: {
-        module: 'esnext',
-        target: 'ES2022',
-        moduleResolution: 'node'
+  transform: {
+    '^.+\\.(ts|tsx)$': [
+      'ts-jest',
+      {
+        useESM: true,
+        tsconfig: {
+          module: 'esnext',
+          target: 'ES2022',
+          moduleResolution: 'node'
+        }
       }
-    }
+    ]
   },
   collectCoverageFrom: [
     'src/**/*.ts',
