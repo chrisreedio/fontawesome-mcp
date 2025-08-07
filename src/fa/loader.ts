@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { load } from 'js-yaml';
 import { FAIcon, IconMetadata, FAStyle } from './types.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -42,8 +43,9 @@ class FontAwesomeLoader {
     }
 
     try {
-      const metadataPath = join(this.faPath, 'metadata', 'icons.json');
-      const metadata = JSON.parse(readFileSync(metadataPath, 'utf8'));
+      const metadataPath = join(this.faPath, 'metadata', 'icons.yml');
+      const yamlContent = readFileSync(metadataPath, 'utf8');
+      const metadata = load(yamlContent) as IconMetadata;
       this.iconsMetadata = metadata;
       return metadata;
     } catch (error) {
