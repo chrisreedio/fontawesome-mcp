@@ -1,16 +1,16 @@
-# Font Awesome Pro MCP Server
+# 🎯 Font Awesome Pro MCP Server
 
 A Model Context Protocol (MCP) server that provides fuzzy search and retrieval functionality for Font Awesome Pro icons. Built with Node.js, TypeScript, and Express.
 
-## Features
+## ✨ Features
 
-- **Fuzzy Search**: Find icons using intelligent search with Fuse.js
-- **Icon Retrieval**: Get complete icon data including SVG content
-- **MCP Compatible**: Standard JSON-RPC interface for MCP clients
-- **Multiple Access Methods**: HTTP API, MCP protocol, and direct SVG endpoints
-- **Font Awesome Pro Support**: Access to all Pro icon styles (solid, regular, light, thin, duotone)
+- **🔍 Fuzzy Search**: Find icons using intelligent search with Fuse.js
+- **📦 Icon Retrieval**: Get complete icon data including SVG content
+- **🔌 MCP Compatible**: Standard JSON-RPC interface for MCP clients
+- **🌐 Multiple Access Methods**: HTTP API, MCP protocol, and direct SVG endpoints
+- **💎 Font Awesome Pro Support**: Access to all Pro icon styles (solid, regular, light, thin, duotone)
 
-## Prerequisites
+## 📋 Prerequisites
 
 - Node.js 18+ 
 - Font Awesome Pro license with NPM access token configured in `~/.npmrc`:
@@ -19,7 +19,7 @@ A Model Context Protocol (MCP) server that provides fuzzy search and retrieval f
   //npm.fontawesome.com/:_authToken=YOUR_TOKEN_HERE
   ```
 
-## Installation
+## 🚀 Installation
 
 ```bash
 # Clone the repository
@@ -33,7 +33,7 @@ npm install
 npm run build
 ```
 
-## Usage
+## 🎮 Usage
 
 ### Development
 ```bash
@@ -47,17 +47,17 @@ npm start
 
 The server runs on `http://localhost:8000` by default. Set `PORT` environment variable to change.
 
-## API Endpoints
+## 🔗 API Endpoints
 
-### Health Check
+### ❤️ Health Check
 ```bash
 GET /health
 ```
 Returns server status and timestamp.
 
-### Simple HTTP API
+### 🌐 Simple HTTP API
 
-#### Search Icons
+#### 🔍 Search Icons
 ```bash
 POST /api/search
 Content-Type: application/json
@@ -69,7 +69,7 @@ Content-Type: application/json
 }
 ```
 
-#### Get Specific Icon
+#### 📦 Get Specific Icon
 ```bash
 POST /api/icon
 Content-Type: application/json
@@ -80,9 +80,9 @@ Content-Type: application/json
 }
 ```
 
-### MCP JSON-RPC Protocol
+### 🔌 MCP JSON-RPC Protocol
 
-#### List Available Tools
+#### 📋 List Available Tools
 ```bash
 POST /rpc
 Content-Type: application/json
@@ -94,7 +94,7 @@ Content-Type: application/json
 }
 ```
 
-#### Call a Tool
+#### ⚡ Call a Tool
 ```bash
 POST /rpc
 Content-Type: application/json
@@ -113,13 +113,13 @@ Content-Type: application/json
 }
 ```
 
-### Direct SVG Access
+### 🎨 Direct SVG Access
 ```bash
 GET /svg/:style/:name.svg
 ```
 Example: `http://localhost:8000/svg/solid/house-signal.svg`
 
-## Available Tools
+## 🛠️ Available Tools
 
 ### fuzzySearch
 Search Font Awesome Pro icons using fuzzy matching.
@@ -140,7 +140,7 @@ Get a specific Font Awesome Pro icon with complete data including SVG content.
 
 **Returns:** Icon object with SVG content.
 
-## Response Format
+## 📄 Response Format
 
 Icons are returned with the following structure:
 ```json
@@ -156,7 +156,7 @@ Icons are returned with the following structure:
 }
 ```
 
-## Architecture
+## 🏗️ Architecture
 
 ```
 src/
@@ -169,11 +169,11 @@ src/
     └── getIcon.ts     # Icon retrieval functionality
 ```
 
-## Production Deployment
+## 🚢 Production Deployment
 
 For production use, you'll want to run the server as a persistent service that automatically restarts on failure and survives system reboots. Here are the most common deployment approaches:
 
-### PM2 Process Manager (Recommended)
+### ⚡ PM2 Process Manager (Recommended)
 PM2 is a popular Node.js process manager that handles automatic restarts, logging, and clustering.
 
 ```bash
@@ -194,7 +194,7 @@ pm2 status
 pm2 logs fontawesome-mcp
 ```
 
-### Docker
+### 🐳 Docker
 Containerized deployment for consistent environments and easy scaling.
 
 First, create a `Dockerfile`:
@@ -232,7 +232,7 @@ docker run -d -p 8000:8000 --restart unless-stopped --name fontawesome-mcp fonta
 docker logs fontawesome-mcp
 ```
 
-### systemd Service (Linux)
+### 🐧 systemd Service (Linux)
 For Linux servers, systemd provides robust service management.
 
 Create `/etc/systemd/system/fontawesome-mcp.service`:
@@ -265,7 +265,7 @@ sudo systemctl start fontawesome-mcp
 sudo systemctl status fontawesome-mcp
 ```
 
-### Environment Variables
+### 🔧 Environment Variables
 Set these environment variables for production:
 ```bash
 NODE_ENV=production
@@ -273,7 +273,7 @@ PORT=8000
 LOG_LEVEL=info
 ```
 
-## Development
+## 🛠️ Development
 
 ### Scripts
 - `npm run dev` - Development server with hot reload
@@ -288,10 +288,10 @@ LOG_LEVEL=info
 - **zod**: Schema validation
 - **@modelcontextprotocol/sdk**: MCP protocol support
 
-## License
+## 📄 License
 
 MIT
 
-## Font Awesome Pro
+## 💎 Font Awesome Pro
 
 This project requires Font Awesome Pro. Font Awesome Pro is a commercial product - ensure you have appropriate licensing for your use case.
