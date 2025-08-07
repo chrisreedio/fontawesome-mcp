@@ -243,8 +243,8 @@ After=network.target
 
 [Service]
 Type=simple
-User=chris
-WorkingDirectory=/home/chris/dev/chrisreedio/projects/fontawesome-mcp
+User=your-username
+WorkingDirectory=/path/to/fontawesome-mcp
 ExecStart=/usr/bin/node dist/server.js
 Restart=always
 RestartSec=10
@@ -277,9 +277,33 @@ LOG_LEVEL=info
 
 ### Scripts
 - `npm run dev` - Development server with hot reload
+- `npm run dev:mcp` - Start local MCP server in development mode
 - `npm run build` - Build TypeScript to JavaScript
-- `npm start` - Run production server
+- `npm run start` - Run production server
+- `npm run start:mcp` - Run local MCP server from built files
 - `npm run clean` - Remove build artifacts
+
+### Testing
+Run the comprehensive test suite to verify functionality:
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode (for development)
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+```
+
+The test suite includes:
+- **Unit Tests**: Core search and icon retrieval methods
+- **Integration Tests**: Local MCP server functionality via stdio
+- **HTTP API Tests**: All REST endpoints and MCP JSON-RPC interface
+- **Error Handling**: Validation and edge case scenarios
+
+Tests verify both the HTTP server and local MCP server implementations work correctly.
 
 ### Key Dependencies
 - **Express**: HTTP server framework

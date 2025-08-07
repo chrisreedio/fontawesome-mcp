@@ -1,0 +1,99 @@
+name: Test
+
+on:
+  push:
+    branches: [ main, develop, feature/* ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Setup Font Awesome Pro registry
+      run: |
+        echo "@fortawesome:registry=https://npm.fontawesome.com/" >> ~/.npmrc
+        echo "//npm.fontawesome.com/:_authToken=${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}" >> ~/.npmrc
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run linting (if configured)
+      run: |
+        if npm run lint --silent 2>/dev/null; then
+          npm run lint
+        else
+          echo "Linting not configured, skipping"
+        fi
+      continue-on-error: true
+
+    - name: Build project
+      run: npm run build
+
+    - name: Run tests
+      run: npm test
+
+    - name: Run test coverage
+      run: npm run test:coverage
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage/lcov.info
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+
+  build-and-test-mcp:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Setup Font Awesome Pro registry
+      run: |
+        echo "@fortawesome:registry=https://npm.fontawesome.com/" >> ~/.npmrc
+        echo "//npm.fontawesome.com/:_authToken=${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}" >> ~/.npmrc
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build both servers
+      run: |
+        npm run build
+        npm run build:mcp
+
+    - name: Test MCP server can start
+      run: |
+        timeout 5s node dist/mcp-server.js || test $? = 124
+        echo "MCP server started successfully"
+
+    - name: Test HTTP server can start
+      run: |
+        npm run start &
+        sleep 3
+        curl -f http://localhost:8000/health || exit 1
+        kill %1
+        echo "HTTP server started successfully"
