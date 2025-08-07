@@ -21,6 +21,21 @@ A Model Context Protocol (MCP) server that provides fuzzy search and retrieval f
 
 ## 🚀 Installation
 
+### Option 1: NPM Package (Coming Soon)
+
+Once published to NPM, you can install directly:
+
+```bash
+# Install and run via npx (no local setup required)
+npx @chrisreedio/fontawesome-pro-mcp
+
+# Or install globally
+npm install -g @chrisreedio/fontawesome-pro-mcp
+fontawesome-pro-mcp
+```
+
+### Option 2: Development/Local Setup
+
 ```bash
 # Clone the repository
 git clone https://github.com/chrisreedio/fontawesome-mcp.git
@@ -51,11 +66,40 @@ The server runs on `http://localhost:8000` by default. Set `PORT` environment va
 
 ### Claude Desktop
 
-To use this MCP server with Claude Desktop, add the configuration to your Claude Desktop settings:
+#### Option 1: NPM Package (Recommended)
 
-**Location:** 
+Once published, use the npx approach for the easiest setup:
+
+**Configuration File Location:**
 - **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
 - **Windows:** `%APPDATA%/Claude/claude_desktop_config.json`
+
+**Configuration:**
+```json
+{
+  "mcpServers": {
+    "fontawesome-pro": {
+      "command": "npx",
+      "args": ["-y", "@chrisreedio/fontawesome-pro-mcp"]
+    }
+  }
+}
+```
+
+**Setup Steps:**
+1. Add the configuration to Claude Desktop
+2. Restart Claude Desktop
+3. NPX will automatically download and run the server
+
+**Benefits:**
+- ✅ No local setup required
+- ✅ Automatic updates when package is updated
+- ✅ No path configuration needed
+- ✅ Font Awesome Pro dependencies handled automatically
+
+#### Option 2: Local Development Setup
+
+For development or if you prefer local installation:
 
 **Configuration:**
 ```json
@@ -69,16 +113,33 @@ To use this MCP server with Claude Desktop, add the configuration to your Claude
 }
 ```
 
-Replace `/ABSOLUTE/PATH/TO/fontawesome-mcp` with the full path to your project directory.
+**Setup Steps:**
+1. Clone and build the project locally
+2. Make sure Font Awesome Pro is installed: `npm install`
+3. Build the MCP server: `npm run build`  
+4. Add the configuration with your actual project path
+5. Restart Claude Desktop
 
-After adding the configuration:
-1. Restart Claude Desktop
-2. The Font Awesome tools will appear in your Claude conversations
-3. You can search for icons with `fuzzySearch` and get specific icons with `getIcon`
+After setup:
+1. The Font Awesome tools will appear in your Claude conversations
+2. You can search for icons with `fuzzySearch` and get specific icons with `getIcon`
+3. All Font Awesome Pro styles are supported (solid, regular, light, thin, duotone, brands)
 
 ### Claude Code CLI
 
-To add this MCP server to Claude Code CLI, use the following command:
+#### Option 1: NPM Package (Recommended)
+
+Once published, you can install directly via npx:
+
+```bash
+claude mcp add fontawesome-pro -- npx -y @chrisreedio/fontawesome-pro-mcp
+```
+
+This method automatically handles dependencies and updates.
+
+#### Option 2: Local Installation
+
+For development or local use:
 
 ```bash
 claude mcp add fontawesome-pro node /ABSOLUTE/PATH/TO/fontawesome-mcp/dist/mcp-server.js
@@ -348,6 +409,22 @@ The test suite includes:
 - **Error Handling**: Validation and edge case scenarios
 
 Tests verify both the HTTP server and local MCP server implementations work correctly.
+
+### Publishing
+
+To publish this package to NPM:
+
+```bash
+# Ensure you're logged into NPM
+npm login
+
+# Publish the scoped package as public (required for @username/package-name format)
+npm publish --access public
+```
+
+**Note:** This package uses a scoped name (`@chrisreedio/fontawesome-pro-mcp`), so the `--access public` flag is required to make it publicly accessible. Without this flag, NPM would try to publish it as a private package.
+
+The package includes a `prepublishOnly` script that automatically builds the project before publishing.
 
 ### Key Dependencies
 - **Express**: HTTP server framework

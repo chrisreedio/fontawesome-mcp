@@ -16,21 +16,38 @@ class FontAwesomeLoader {
   }
 
   private findFontAwesomePath(): void {
-    try {
-      // Construct path manually for ES modules
-      const projectRoot = process.cwd();
-      this.faPath = join(projectRoot, 'node_modules', '@fortawesome', 'fontawesome-pro');
-      
-      // Verify the path exists by checking for package.json
-      const packagePath = join(this.faPath, 'package.json');
+    // Try multiple possible locations for Font Awesome Pro
+    const possiblePaths = [
+      // Project root based on current working directory
+      join(process.cwd(), 'node_modules', '@fortawesome', 'fontawesome-pro'),
+      // Project root based on script location (go up from dist/fa/loader.js to project root)
+      join(__dirname, '..', '..', 'node_modules', '@fortawesome', 'fontawesome-pro'),
+      // Alternative: try from the directory containing the dist folder
+      join(__dirname, '..', '..', '..', 'node_modules', '@fortawesome', 'fontawesome-pro'),
+    ];
+
+    for (const path of possiblePaths) {
       try {
+        const packagePath = join(path, 'package.json');
         readFileSync(packagePath, 'utf8');
+        this.faPath = path;
+        return;
       } catch {
-        throw new Error('Font Awesome Pro not found. Make sure it is installed with your .npmrc token.');
+        // Continue to next path
       }
-    } catch (error) {
-      throw new Error('Font Awesome Pro not found. Make sure it is installed with your .npmrc token.');
     }
+
+    // Provide more detailed error information
+    const debugInfo = {
+      cwd: process.cwd(),
+      __dirname,
+      searchedPaths: possiblePaths
+    };
+    
+    throw new Error(
+      `Font Awesome Pro not found. Make sure it is installed with your .npmrc token.\n` +
+      `Debug info: ${JSON.stringify(debugInfo, null, 2)}`
+    );
   }
 
   private loadMetadata(): IconMetadata {

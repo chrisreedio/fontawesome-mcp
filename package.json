@@ -1,8 +1,11 @@
 {
-  "name": "fontawesome-pro-mcp",
+  "name": "@chrisreedio/fontawesome-pro-mcp",
   "version": "1.0.0",
   "description": "Font Awesome Pro MCP Server for icon search and retrieval",
   "main": "dist/server.js",
+  "bin": {
+    "fontawesome-pro-mcp": "dist/mcp-server.js"
+  },
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
@@ -14,7 +17,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "mcp",
@@ -22,8 +26,21 @@
     "icons",
     "server"
   ],
-  "author": "",
+  "author": "Chris Reed <chris@reedtech.us>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrisreedio/fontawesome-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chrisreedio/fontawesome-mcp/issues"
+  },
+  "homepage": "https://github.com/chrisreedio/fontawesome-mcp#readme",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-pro": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.0",
