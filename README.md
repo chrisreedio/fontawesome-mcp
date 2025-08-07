@@ -47,6 +47,50 @@ npm start
 
 The server runs on `http://localhost:8000` by default. Set `PORT` environment variable to change.
 
+## 🔌 MCP Client Integration
+
+### Claude Desktop
+
+To use this MCP server with Claude Desktop, add the configuration to your Claude Desktop settings:
+
+**Location:** 
+- **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows:** `%APPDATA%/Claude/claude_desktop_config.json`
+
+**Configuration:**
+```json
+{
+  "mcpServers": {
+    "fontawesome-pro": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/fontawesome-mcp/dist/mcp-server.js"]
+    }
+  }
+}
+```
+
+Replace `/ABSOLUTE/PATH/TO/fontawesome-mcp` with the full path to your project directory.
+
+After adding the configuration:
+1. Restart Claude Desktop
+2. The Font Awesome tools will appear in your Claude conversations
+3. You can search for icons with `fuzzySearch` and get specific icons with `getIcon`
+
+### Claude Code CLI
+
+To add this MCP server to Claude Code CLI, use the following command:
+
+```bash
+claude mcp add fontawesome-pro node /ABSOLUTE/PATH/TO/fontawesome-mcp/dist/mcp-server.js
+```
+
+Replace `/ABSOLUTE/PATH/TO/fontawesome-mcp` with the full path to your project directory.
+
+After adding:
+1. The server will be available in all Claude Code sessions
+2. Use the Font Awesome tools directly in your coding conversations
+3. Perfect for finding and integrating icons into your projects
+
 ## 🔗 API Endpoints
 
 ### ❤️ Health Check
