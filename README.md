@@ -90,6 +90,8 @@ Restart Claude Desktop after editing the config.
 
 [![Install MCP Server](https://cursor.com/deeplink/mcp-install-light.svg)](https://cursor.com/en/install-mcp?name=Font%20Awesome%20MCP%20Server&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwY2hyaXNyZWVkaW8lMkZmb250YXdlc29tZS1wcm8tbWNwJTIyJTdE)
 
+or go to this deep link: [One Click Install](cursor://anysphere.cursor-deeplink/mcp/install?name=Font%20Awesome%20MCP%20Server&config=eyJjb21tYW5kIjoibnB4IC15IEBjaHJpc3JlZWRpby9mb250YXdlc29tZS1wcm8tbWNwIn0%3D)
+
 #### Option 2: Manual Setup
 
 Steps:
