@@ -1,6 +1,6 @@
 {
   "name": "@chrisreedio/fontawesome-pro-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Font Awesome Pro MCP Server for icon search and retrieval",
   "main": "dist/server.js",
   "bin": {
